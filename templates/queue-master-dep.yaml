@@ -1,3 +1,4 @@
+{{- if .Values.queuemaster.enabled }}
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
@@ -14,7 +15,7 @@ spec:
     spec:
       containers:
       - name: queue-master
-        image: weaveworksdemos/queue-master:0.3.1
+        image: {{ .Values.queuemaster.imagen}}:{{ .Values.queuemaster.version }}
         env:
          {{- if .Values.zipkin.enabled }}
          - name: ZIPKIN
@@ -43,3 +44,5 @@ spec:
             port: 80
           initialDelaySeconds: 180
           periodSeconds: 3
+          periodSeconds: 3
+{{- end }}  

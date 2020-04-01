@@ -1,3 +1,4 @@
+{{- if .Values.sessiondb.enabled }}
 ---
 apiVersion: v1
 kind: Service
@@ -12,3 +13,4 @@ spec:
     targetPort: 6379
   selector:
     name: session-db
+{{- end }}

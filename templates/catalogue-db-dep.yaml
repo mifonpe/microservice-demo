@@ -1,3 +1,4 @@
+{{- if .Values.catalogue.enabled }}
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
@@ -14,12 +15,22 @@ spec:
     spec:
       containers:
       - name: catalogue-db
-        image: weaveworksdemos/catalogue-db:0.3.0
-        env:
-          - name: MYSQL_ROOT_PASSWORD
-            value: fake_password
-          - name: MYSQL_DATABASE
-            value: socksdb
+        image: {{ .Values.catalogue.database.image }}:{{ .Values.catalogue.database.version }}
+        envFrom:
+          - secretRef:
+              name: catalogue-db-secret
         ports:
         - name: mysql
           containerPort: 3306
+      {{- if .Values.catalogue.database.persistence.enabled }}
+        volumeMounts:
+          - mountPath: /var/lib/mysql
+            name: database 
+      volumes:
+        - name: database
+          persistentVolumeClaim:
+            claimName: cataloguedb-pvc  
+      {{- end }}  
+
+          
+{{- end }}

@@ -1,3 +1,4 @@
+{{- if .Values.orders.enabled }}
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
@@ -14,7 +15,7 @@ spec:
     spec:
       containers:
       - name: orders
-        image: weaveworksdemos/orders:0.4.7
+        image: {{ .Values.orders.image }}:{{ .Values.orders.version }}
         env:
          {{- if .Values.zipkin.enabled }}
          - name: ZIPKIN
@@ -57,6 +58,11 @@ spec:
           periodSeconds: 3
       volumes:
         - name: tmp-volume
+        {{- if .Values.orders.database.persistence.enabled }}
+          persistentVolumeClaim:
+            claimName: orders-pvc
+        {{- else}}    
           emptyDir:
-            medium: Memory
-
+            medium: Memory 
+        {{- end }}
+{{- end }}

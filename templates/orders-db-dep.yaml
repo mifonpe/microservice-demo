@@ -1,3 +1,4 @@
+{{- if .Values.orders.enabled }}
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
@@ -14,7 +15,7 @@ spec:
     spec:
       containers:
       - name: orders-db
-        image: mongo
+        image: {{ .Values.orders.database.image }}
         ports:
         - name: mongo
           containerPort: 27017
@@ -32,5 +33,11 @@ spec:
           name: tmp-volume
       volumes:
         - name: tmp-volume
+        {{- if .Values.orders.database.persistence.enabled }}
+          persistentVolumeClaim:
+            claimName: ordersdb-pvc
+        {{- else}}    
           emptyDir:
-            medium: Memory
+            medium: Memory 
+        {{- end }}
+{{- end }}

@@ -1,3 +1,4 @@
+{{- if .Values.catalogue.enabled }}
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
@@ -14,7 +15,7 @@ spec:
     spec:
       containers:
       - name: catalogue
-        image: weaveworksdemos/catalogue:0.3.5
+        image: {{ .Values.catalogue.image }}:{{ .Values.catalogue.version }}
         {{- if .Values.zipkin.enabled }}
         env:
          - name: ZIPKIN
@@ -50,3 +51,4 @@ spec:
             port: 80
           initialDelaySeconds: 180
           periodSeconds: 3
+{{- end }}

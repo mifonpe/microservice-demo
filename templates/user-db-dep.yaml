@@ -1,3 +1,4 @@
+{{- if .Values.user.enabled }}
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
@@ -14,7 +15,7 @@ spec:
     spec:
       containers:
       - name: user-db
-        image: weaveworksdemos/user-db:0.3.0
+        image: {{.Values.user.database.image }}:{{.Values.user.database.version }}
 
         ports:
         - name: mongo
@@ -33,5 +34,11 @@ spec:
           name: tmp-volume
       volumes:
         - name: tmp-volume
+          {{- if .Values.user.database.persistence.enabled }}
+          persistentVolumeClaim:
+            claimName: userdb-pvc
+          {{- else}}    
           emptyDir:
-            medium: Memory
+            medium: Memory 
+          {{- end }}
+{{- end }} 

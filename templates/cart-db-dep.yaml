@@ -1,3 +1,4 @@
+{{- if .Values.carts.enabled }}
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
@@ -32,5 +33,11 @@ spec:
           name: tmp-volume
       volumes:
         - name: tmp-volume
+        {{- if .Values.carts.persistence.enabled }}
+          persistentVolumeClaim:
+            claimName: cart-pvc
+        {{- else }}    
           emptyDir:
-            medium: Memory
+            medium: Memory 
+        {{- end }}
+      {{- end }}

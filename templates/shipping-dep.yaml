@@ -1,3 +1,4 @@
+{{- if .Values.shipping.enabled }}
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
@@ -14,7 +15,7 @@ spec:
     spec:
       containers:
       - name: shipping
-        image: weaveworksdemos/shipping:0.4.8
+        image: {{.Values.shipping.image }}:{{.Values.shipping.version }}
         env:
         {{- if .Values.zipkin.enabled }}
          - name: ZIPKIN
@@ -57,6 +58,12 @@ spec:
           periodSeconds: 3
       volumes:
         - name: tmp-volume
+        {{- if .Values.shipping.persistence.enabled }}
+          persistentVolumeClaim:
+            claimName: shipping-pvc
+        {{- else}}    
           emptyDir:
-            medium: Memory
+            medium: Memory 
+        {{- end }}
 
+{{- end }} 

@@ -1,3 +1,4 @@
+{{- if .Values.user.enabled }}
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
@@ -14,7 +15,7 @@ spec:
     spec:
       containers:
       - name: user
-        image: weaveworksdemos/user:0.4.4
+        image: {{.Values.user.image }}:{{.Values.user.version }}
         resources:
           limits:
             cpu: 300m
@@ -52,3 +53,4 @@ spec:
             port: 80
           initialDelaySeconds: 180
           periodSeconds: 3
+{{- end }}

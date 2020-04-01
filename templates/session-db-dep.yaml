@@ -1,3 +1,4 @@
+{{- if .Values.sessiondb.enabled }}
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
@@ -14,7 +15,7 @@ spec:
     spec:
       containers:
       - name: session-db
-        image: redis:alpine
+        image: {{ .Values.rabbitmq.image }}:{{ .Values.rabbitmq.version }}
         ports:
         - name: redis
           containerPort: 6379
@@ -27,3 +28,4 @@ spec:
               - SETGID
               - SETUID
           readOnlyRootFilesystem: true
+{{- end }}         

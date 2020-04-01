@@ -1,0 +1,91 @@
+{{- if and .Values.carts.enabled .Values.carts.persistence.enabled }}
+---           
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: cart-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .Values.carts.persistence.size }}
+  storageClassName: {{ .Values.carts.persistence.storageclass }}
+{{- end }}
+
+{{- if and .Values.orders.database.enabled .Values.orders.database.persistence.enabled }}
+---           
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: ordersdb-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .Values.orders.database.persistence.size }}
+  storageClassName: {{ .Values.orders.database.storageclass }}
+{{- end }}
+
+{{- if and .Values.orders.enabled .Values.orders.persistence.enabled }}
+---           
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: orders-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .Values.orders.persistence.size }}
+  storageClassName: {{ .Values.orders.storageclass }}
+{{- end }}
+
+{{- if and .Values.shipping.enabled .Values.shipping.persistence.enabled }}
+---           
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: shipping-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .Values.shipping.persistence.size }}
+  storageClassName: {{ .Values.shipping.storageclass }}
+{{- end }}
+
+{{- if and .Values.user.database.enabled .Values.user.database.persistence.enabled }}
+---           
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: user-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .Values.user.database.persistence.size }}
+  storageClassName: {{ .Values.user.database.storageclass }}
+{{- end }}
+
+{{- if and .Values.catalogue.enabled .Values.catalogue.database.persistence.enabled }}
+---           
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: cataloguedb-pvc 
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .Values.catalogue.database.persistence.size }}
+  storageClassName: {{ .Values.catalogue.database.storageclass }}
+{{- end }}
+
+
