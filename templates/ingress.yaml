@@ -3,12 +3,19 @@ kind: Ingress
 metadata:
   name: socks-ingress
   annotations:
-    kubernetes.io/ingress.class: nginx
+    #kubernetes.io/ingress.class: nginx
+    kubernetes.io/ingress.class: traefik
+    #external-dns.alpha.kubernetes.io/target: 
 spec:
   rules:
   - http:
+    #host: ciserver-soe-tc.shared-nonprod.cloud.si.orange.es
       paths:
       - path: /
         backend:
           serviceName: front-end
           servicePort: 80
+
+
+    
+    
