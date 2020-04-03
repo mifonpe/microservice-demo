@@ -5,11 +5,11 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: "nginx"
     nginx.ingress.kubernetes.io/auth-realm: "Authentication Required - ok"
-    nginx.ingress.kubernetes.io/auth-secret: "alteos-auth-{{ .Values.env }}"
+    nginx.ingress.kubernetes.io/auth-secret: "alteos-auth-{{ .Values.environment }}"
     nginx.ingress.kubernetes.io/auth-type: "basic"
 spec:
   rules:
-    - host: "socksmarket-{{ .Values.env }}"
+    - host: "socksmarket-{{ .Values.environment }}"
       http:   
         paths:
         - path: /
@@ -18,8 +18,8 @@ spec:
             servicePort: 80
   tls:
    - hosts: 
-     - "socksmarket-{{ .Values.env }}"
-     secretName: "tls-secret-{{ .Values.env }}"  
+     - "socksmarket-{{ .Values.environment }}"
+     secretName: "tls-secret-{{ .Values.environment }}"  
 
    
 
