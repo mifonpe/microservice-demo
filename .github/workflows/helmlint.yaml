@@ -9,14 +9,10 @@ on:
     branches: 
       - master
       - develop
-    paths-ignore:
-      - .github/**
   pull_request:
     branches: 
       - master
       - develop
-    paths-ignore:
-      - .github/**
 jobs:
   build:
     runs-on: self-hosted
