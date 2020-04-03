@@ -3,19 +3,25 @@ kind: Ingress
 metadata:
   name: socks-ingress
   annotations:
-    #kubernetes.io/ingress.class: nginx
-    kubernetes.io/ingress.class: traefik
-    #external-dns.alpha.kubernetes.io/target: 
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/auth-realm: Authentication Required - ok
+    nginx.ingress.kubernetes.io/auth-secret: alteos-auth-{{ .Values.env }}
+    nginx.ingress.kubernetes.io/auth-type: basic
 spec:
   rules:
   - http:
-    #host: ciserver-soe-tc.shared-nonprod.cloud.si.orange.es
+    host: socksmarket-{{ .Values.env }}
       paths:
       - path: /
         backend:
           serviceName: front-end
           servicePort: 80
+  tls:
+   - hosts: 
+     - socksmarket-{{ .Values.env }}
+     secretName: tls-secret-{{ .Values.env }}   
 
+   
 
     
     

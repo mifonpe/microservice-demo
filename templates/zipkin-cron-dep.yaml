@@ -15,15 +15,9 @@ spec:
       containers:
       - name: zipkin-cron
         image: openzipkin/zipkin-dependencies:1.4.0
-        env:
-        - name: STORAGE_TYPE
-          value: mysql
-        - name: MYSQL_HOST
-          value: zipkin-mysql
-        - name: MYSQL_USER
-          value: zipkin
-        - name: MYSQL_PASS
-          value: zipkin
+        envFrom:
+          - secretRef:
+              name: zipkin-secret
         command: ["crond"]
         args: ["-f"]
 {{- end -}}
