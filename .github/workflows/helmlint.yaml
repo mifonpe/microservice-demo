@@ -1,0 +1,32 @@
+# This is a basic workflow to help you get started with Actions
+
+name: helmlint
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on:
+  push:
+    branches: 
+      - master
+      - develop
+  pull_request:
+    branches: 
+      - master
+      - develop
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+    - uses: actions/checkout@v2
+    - name: Helm lint for Helm Charts
+      run: |
+          helm lint .
+          if [ $? != 0 ]; then
+            echo "The chart didn't pass the lint check!"
+            exit 1
+          fi
+          helm install microservice-dry-run .  --dry-run
+          if [ $? != 0 ]; then
+            echo "The chart couldn't be rendered, check your templates!"
+            exit 1
+          fi
