@@ -16,7 +16,7 @@ carts:
             size: 1Gi
             storageclass: gp2
 orders:
-    enabled: false
+    enabled: true
     image: weaveworksdemos/orders
     version: 0.4.7
     persistence:
