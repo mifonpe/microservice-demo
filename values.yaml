@@ -43,7 +43,7 @@ catalogue:
             size: 1Gi
             storageclass: "" 
 user:
-    enabled: true
+    enabled: false
     image: weaveworksdemos/user
     version: 0.4.4
     database: 
@@ -55,27 +55,27 @@ user:
             size: 1Gi
             storageclass: "" 
 queuemaster:
-    enabled: true
+    enabled: false
     image: weaveworksdemos/queue-master
     version: 0.3.1
 rabbitmq:
-    enabled: true
+    enabled: false
     image: rabbitmq
     version: 3.6.8
 sessiondb:
-    enabled: true
+    enabled: false
     image: redis
     version: alpine 
 shipping:
-    enabled: true
+    enabled: false
     image: weaveworksdemos/shipping
     version: 0.4.8 
     persistence:
-        enabled: true
+        enabled: false
         size: 1Gi
         storageclass: "" 
 payment:
-    enabled: true
+    enabled: false
     image: weaveworksdemos/payment
     version: 0.4.3
 frontend:
