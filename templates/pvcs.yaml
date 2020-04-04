@@ -1,9 +1,9 @@
-{{- if and .Values.carts.enabled .Values.carts.persistence.enabled }}
+{{- if and .Values.carts.enabled .Values.carts.database.persistence.enabled }}
 ---           
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: cart-pvc
+  name: cart-db-pvc
 spec:
   accessModes:
     - ReadWriteOnce
@@ -13,7 +13,7 @@ spec:
   storageClassName: {{ .Values.carts.persistence.storageclass }}
 {{- end }}
 
-{{- if and .Values.orders.database.enabled .Values.orders.database.persistence.enabled }}
+{{- if and .Values.orders.enabled .Values.orders.database.persistence.enabled }}
 ---           
 kind: PersistentVolumeClaim
 apiVersion: v1
@@ -58,7 +58,7 @@ spec:
   storageClassName: {{ .Values.shipping.storageclass }}
 {{- end }}
 
-{{- if and .Values.user.database.enabled .Values.user.database.persistence.enabled }}
+{{- if and .Values.user.enabled .Values.user.database.persistence.enabled }}
 ---           
 kind: PersistentVolumeClaim
 apiVersion: v1

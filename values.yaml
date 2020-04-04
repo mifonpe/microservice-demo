@@ -6,29 +6,31 @@ zipkin:
     enabled:  false
     url: zipkin.zipkin.svc.cluster.local
 carts:
-    enabled: false
+    enabled: true
     image: weaveworksdemos/carts
     version: 0.4.8 
     database:
         image: mongo
-    persistence:
-        enabled: true
-        size: 1Gi
-        storageclass: default 
+        persistence:
+            enabled: false
+            # recommended --> false
+            size: 1Gi
+            storageclass: "" 
 orders:
-    enabled: false
+    enabled: true
     image: weaveworksdemos/orders
     version: 0.4.7
     persistence:
         enabled: true
         size: 1Gi
-        storageclass: default 
+        storageclass: "" 
     database:
         image: mongo
         persistence:
-            enabled: true
+            enabled: false
+            # recommended --> false
             size: 1Gi
-            storageclass: default 
+            storageclass: "" 
 catalogue:
     enabled: true
     image: weaveworksdemos/catalogue
@@ -39,7 +41,7 @@ catalogue:
         persistence:
             enabled: true
             size: 1Gi
-            storageclass: default 
+            storageclass: "" 
 user:
     enabled: false
     image: weaveworksdemos/user
@@ -50,7 +52,7 @@ user:
         persistence:
             enabled: true
             size: 1Gi
-            storageclass: default 
+            storageclass: "" 
 queuemaster:
     enabled: false
     image: weaveworksdemos/queue-master
@@ -70,7 +72,7 @@ shipping:
     persistence:
         enabled: true
         size: 1Gi
-        storageclass: default 
+        storageclass: "" 
 payment:
     enabled: false
     image: weaveworksdemos/payment

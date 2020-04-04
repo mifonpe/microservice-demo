@@ -33,9 +33,9 @@ spec:
           name: tmp-volume
       volumes:
         - name: tmp-volume
-        {{- if .Values.carts.persistence.enabled }}
+        {{- if .Values.carts.database.persistence.enabled }}
           persistentVolumeClaim:
-            claimName: cart-pvc
+            claimName: cart-db-pvc
         {{- else }}    
           emptyDir:
             medium: Memory 
