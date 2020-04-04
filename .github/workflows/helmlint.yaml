@@ -25,7 +25,7 @@ jobs:
             echo "The chart didn't pass the lint check!"
             exit 1
           fi
-          helm install microservice-dry-run .  --dry-run
+          helm template microservice-dry-run . 
           if [ $? != 0 ]; then
             echo "The chart couldn't be rendered, check your templates!"
             exit 1
