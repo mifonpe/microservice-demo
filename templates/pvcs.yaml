@@ -25,7 +25,7 @@ spec:
   resources:
     requests:
       storage: {{ .Values.orders.database.persistence.size }}
-  storageClassName: {{ .Values.orders.database.storageclass }}
+  storageClassName: {{ .Values.orders.database.persistence.storageclass }}
 {{- end }}
 
 {{- if and .Values.orders.enabled .Values.orders.persistence.enabled }}
@@ -70,7 +70,7 @@ spec:
   resources:
     requests:
       storage: {{ .Values.user.database.persistence.size }}
-  storageClassName: {{ .Values.user.database.storageclass }}
+  storageClassName: {{ .Values.user.database.persistence.storageclass }}
 {{- end }}
 
 {{- if and .Values.catalogue.enabled .Values.catalogue.database.persistence.enabled }}
@@ -85,7 +85,7 @@ spec:
   resources:
     requests:
       storage: {{ .Values.catalogue.database.persistence.size }}
-  storageClassName: {{ .Values.catalogue.database.storageclass }}
+  storageClassName: {{ .Values.catalogue.database.persistence.storageclass }}
 {{- end }}
 
 
