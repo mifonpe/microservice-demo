@@ -50,7 +50,8 @@ user:
         image: weaveworksdemos/user-db
         version: 0.3.0
         persistence:
-            enabled: true
+            enabled: false
+            # recommended --> false
             size: 1Gi
             storageclass: "" 
 queuemaster:
