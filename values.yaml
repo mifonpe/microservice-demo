@@ -14,21 +14,21 @@ carts:
         persistence:
             enabled: true
             size: 1Gi
-            storageclass: "gp2" 
+            storageclass: gp2
 orders:
-    enabled: false
+    enabled: true
     image: weaveworksdemos/orders
     version: 0.4.7
     persistence:
         enabled: true
         size: 1Gi
-        storageclass: "gp2" 
+        storageclass: gp2
     database:
         image: mongo
         persistence:
             enabled: true
             size: 1Gi
-            storageclass: "gp2" 
+            storageclass: gp2 
 catalogue:
     enabled: true
     image: weaveworksdemos/catalogue
@@ -39,7 +39,7 @@ catalogue:
         persistence:
             enabled: true
             size: 1Gi
-            storageclass: "gp2" 
+            storageclass: gp2 
 user:
     enabled: false
     image: weaveworksdemos/user
@@ -50,7 +50,7 @@ user:
         persistence:
             enabled: true
             size: 1Gi
-            storageclass: "gp2" 
+            storageclass: gp2 
 queuemaster:
     enabled: false
     image: weaveworksdemos/queue-master
@@ -70,7 +70,7 @@ shipping:
     persistence:
         enabled: false
         size: 1Gi
-        storageclass: "gp2" 
+        storageclass: gp2 
 payment:
     enabled: false
     image: weaveworksdemos/payment
