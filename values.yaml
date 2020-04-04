@@ -39,7 +39,7 @@ catalogue:
         image: weaveworksdemos/catalogue-db
         version: 0.3.0
         persistence:
-            enabled: true
+            enabled: false
             size: 1Gi
             storageclass: "" 
 user:
