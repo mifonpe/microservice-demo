@@ -58,7 +58,7 @@ spec:
           periodSeconds: 3
       volumes:
         - name: tmp-volume
-        {{- if .Values.orders.database.persistence.enabled }}
+        {{- if .Values.orders.persistence.enabled }}
           persistentVolumeClaim:
             claimName: orders-pvc
         {{- else}}    
