@@ -14,7 +14,7 @@ spec:
         name: carts-db
     spec:
       {{- if .Values.carts.database.persistence.enabled }}
-      initcontainers:
+      initContainers:
       - name: volume-mount-hack
         image: busybox
         command: ["sh", "-c", "chown -R 10001:10001 /tmp"]
