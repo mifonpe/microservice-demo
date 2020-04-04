@@ -12,7 +12,20 @@ spec:
     metadata:
       labels:
         name: user-db
-    spec:
+    spec:  
+      {{- if .Values.user.database.persistence.enabled }}
+      initContainers:
+      - name: chmoder
+        image: alpine:3.6
+        command:
+        - chown
+        - -R  
+        - 999:999
+        - /tmp
+        volumeMounts:
+        - name: tmp-volume
+          mountPath: /tmp
+      {{- end }} 
       containers:
       - name: user-db
         image: {{.Values.user.database.image }}:{{.Values.user.database.version }}
@@ -21,11 +34,6 @@ spec:
         - name: mongo
           containerPort: 27017
         securityContext:
-          {{- if .Values.user.database.persistence.enabled }}
-          runAsUser: 999
-          runAsGroup: 999
-          fsGroup: 999
-          {{- end }}
           capabilities:
             drop:
               - all

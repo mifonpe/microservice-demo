@@ -7,24 +7,28 @@ metadata:
   labels:
     name: catalogue-db
 spec:
-  {{- if .Values.catalogue.database.persistence.enabled }}
-  securityContext: 
-    runAsUser: 999
-    runAsGroup: 999
-    fsGroup: 999
-    {{- end }}
   replicas: 1
   template:
     metadata:
       labels:
         name: catalogue-db
     spec:
+      {{- if .Values.catalogue.database.persistence.enabled }}
+      initContainers:
+      - name: chmoder
+        image: alpine:3.6
+        command: ["/bin/sh"]
+        args: ["-c", "chown -R 999:999 /var/lib/mysql && rm -rf /var/lib/mysql/lost+found"]
+        volumeMounts:
+        - name: database 
+          mountPath: /var/lib/mysql
+      {{- end }} 
       containers:
       - name: catalogue-db
         image: {{ .Values.catalogue.database.image }}:{{ .Values.catalogue.database.version }}
         envFrom:
           - secretRef:
-              name: catalogue-db-secret
+              name: catalogue-db-secret     
         ports:
         - name: mysql
           containerPort: 3306
@@ -38,5 +42,5 @@ spec:
             claimName: cataloguedb-pvc  
       {{- end }}  
 
-          
+         
 {{- end }}

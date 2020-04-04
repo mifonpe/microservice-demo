@@ -13,6 +13,19 @@ spec:
       labels:
         name: carts-db
     spec:
+      {{- if .Values.orders.database.persistence.enabled }}
+      initContainers:
+      - name: chmoder
+        image: alpine:3.6
+        command:
+        - chown
+        - -R  
+        - 999:999
+        - /tmp
+        volumeMounts:
+        - name: tmp-volume
+          mountPath: /tmp
+      {{- end }} 
       containers:
       - name: carts-db
         image: {{ .Values.carts.database.image }}
@@ -20,11 +33,6 @@ spec:
         - name: mongo
           containerPort: 27017
         securityContext:
-          {{- if .Values.orders.database.persistence.enabled }}
-          runAsUser: 999
-          runAsGroup: 999
-          fsGroup: 999
-          {{- end }}
           capabilities:
             drop:
               - all

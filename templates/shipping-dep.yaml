@@ -13,6 +13,19 @@ spec:
       labels:
         name: shipping
     spec:
+      {{- if .Values.shipping.persistence.enabled }}
+      initContainers:
+      - name: chmoder
+        image: alpine:3.6
+        command:
+        - chown
+        - -R  
+        - 10001:10001
+        - /tmp
+        volumeMounts:
+        - name: tmp-volume
+          mountPath: /tmp
+      {{- end }}  
       containers:
       - name: shipping
         image: {{.Values.shipping.image }}:{{.Values.shipping.version }}
@@ -35,10 +48,6 @@ spec:
         securityContext:
           runAsNonRoot: true
           runAsUser: 10001
-          {{- if .Values.shipping.persistence.enabled }}
-          runAsGroup: 10001
-          fsGroup: 10001
-          {{- end }}
           capabilities:
             drop:
               - all

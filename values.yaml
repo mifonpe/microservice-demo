@@ -13,7 +13,6 @@ carts:
         image: mongo
         persistence:
             enabled: true
-            # recommended --> false
             size: 1Gi
             storageclass: "" 
 orders:
@@ -28,7 +27,6 @@ orders:
         image: mongo
         persistence:
             enabled: true
-            # recommended --> false
             size: 1Gi
             storageclass: "" 
 catalogue:
@@ -51,19 +49,18 @@ user:
         version: 0.3.0
         persistence:
             enabled: true
-            # recommended --> false
             size: 1Gi
             storageclass: "" 
 queuemaster:
-    enabled: true
+    enabled: false
     image: weaveworksdemos/queue-master
     version: 0.3.1
 rabbitmq:
-    enabled: true
+    enabled: false
     image: rabbitmq
     version: 3.6.8
 sessiondb:
-    enabled: true
+    enabled: false
     image: redis
     version: alpine 
 shipping:
@@ -75,10 +72,11 @@ shipping:
         size: 1Gi
         storageclass: "" 
 payment:
-    enabled: true
+    enabled: false
     image: weaveworksdemos/payment
     version: 0.4.3
 frontend:
+    enabled: false
     image: weaveworksdemos/front-end
     version: 0.3.12
     replicas: 1

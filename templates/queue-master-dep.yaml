@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: queue-master
-        image: {{ .Values.queuemaster.imagen}}:{{ .Values.queuemaster.version }}
+        image: {{ .Values.queuemaster.image}}:{{ .Values.queuemaster.version }}
         env:
          {{- if .Values.zipkin.enabled }}
          - name: ZIPKIN
