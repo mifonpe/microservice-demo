@@ -9,10 +9,13 @@ on:
     branches: 
       - master
       - develop
+      - int
+      
   pull_request:
     branches: 
       - master
       - develop
+      - int
 jobs:
   build:
     runs-on: self-hosted
@@ -25,7 +28,8 @@ jobs:
             echo "The chart didn't pass the lint check!"
             exit 1
           fi
-          helm template microservice-dry-run . 
+
+          helm template microservice-dry-run .  
           if [ $? != 0 ]; then
             echo "The chart couldn't be rendered, check your templates!"
             exit 1
