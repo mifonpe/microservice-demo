@@ -6,7 +6,7 @@ zipkin:
     enabled:  false
     url: zipkin.zipkin.svc.cluster.local
 carts:
-    enabled: true
+    enabled: false
     image: weaveworksdemos/carts
     version: 0.4.8 
     database:
@@ -16,7 +16,7 @@ carts:
             size: 1Gi
             storageclass: "" 
 orders:
-    enabled: true
+    enabled: false
     image: weaveworksdemos/orders
     version: 0.4.7
     persistence:
@@ -41,7 +41,7 @@ catalogue:
             size: 1Gi
             storageclass: "" 
 user:
-    enabled: true
+    enabled: false
     image: weaveworksdemos/user
     version: 0.4.4
     database: 
@@ -64,7 +64,7 @@ sessiondb:
     image: redis
     version: alpine 
 shipping:
-    enabled: true
+    enabled: false
     image: weaveworksdemos/shipping
     version: 0.4.8 
     persistence:
@@ -76,7 +76,7 @@ payment:
     image: weaveworksdemos/payment
     version: 0.4.3
 frontend:
-    enabled: false
+    enabled: true
     image: weaveworksdemos/front-end
     version: 0.3.12
     replicas: 1
