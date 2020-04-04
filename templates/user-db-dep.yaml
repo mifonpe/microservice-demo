@@ -21,6 +21,11 @@ spec:
         - name: mongo
           containerPort: 27017
         securityContext:
+          {{- if .Values.user.database.persistence.enabled }}
+          runAsUser: 999
+          runAsGroup: 999
+          fsGroup: 999
+          {{- end }}
           capabilities:
             drop:
               - all

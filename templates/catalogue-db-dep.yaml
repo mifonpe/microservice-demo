@@ -7,6 +7,12 @@ metadata:
   labels:
     name: catalogue-db
 spec:
+  {{- if .Values.catalogue.database.persistence.enabled }}
+  securityContext: 
+    runAsUser: 999
+    runAsGroup: 999
+    fsGroup: 999
+    {{- end }}
   replicas: 1
   template:
     metadata:

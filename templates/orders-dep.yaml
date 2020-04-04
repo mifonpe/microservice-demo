@@ -12,13 +12,7 @@ spec:
     metadata:
       labels:
         name: orders
-    spec:
-      {{- if .Values.orders.persistence.enabled }}
-      securityContext:
-        runAsUser: 10001
-        runAsGroup: 10001
-        fsGroup: 10001
-      {{- end }}
+    spec:      
       containers:
       - name: orders
         image: {{ .Values.orders.image }}:{{ .Values.orders.version }}
@@ -41,6 +35,10 @@ spec:
         securityContext:
           runAsNonRoot: true
           runAsUser: 10001
+          {{- if .Values.orders.persistence.enabled }}
+          runAsGroup: 10001
+          fsGroup: 10001
+          {{- end }}
           capabilities:
             drop:
               - all

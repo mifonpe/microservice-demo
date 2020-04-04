@@ -35,6 +35,10 @@ spec:
         securityContext:
           runAsNonRoot: true
           runAsUser: 10001
+          {{- if .Values.shipping.persistence.enabled }}
+          runAsGroup: 10001
+          fsGroup: 10001
+          {{- end }}
           capabilities:
             drop:
               - all
