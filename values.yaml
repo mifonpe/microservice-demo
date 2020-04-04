@@ -43,7 +43,7 @@ catalogue:
             size: 1Gi
             storageclass: "" 
 user:
-    enabled: false
+    enabled: true
     image: weaveworksdemos/user
     version: 0.4.4
     database: 
