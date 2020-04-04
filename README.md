@@ -8,9 +8,8 @@ The high level architecture of the application is shown below:
 
 ## Values
 
-The values file is much more flexible than the original one, providing switches to turn on and off every single microservice conforming the full mesh, and its associated resources.
-* validate Kubernetes manifests with [kubeval](https://github.com/instrumenta/kubeval)
-* validate Flux Helm Releases with [hrval](https://github.com/stefanprodan/hrval-action)
+The values file is much more flexible than the original one, providing switches to turn on and off every single microservice conforming the full mesh, and its associated resources. It also provides an easier way of changing the container images and versions, as well as the persisten storage.
+
 
 ## Storage
 PV/PVCs support has been added for those microservices that were using in-memory storage for databases, such as those relying on mongo and mysql. Six microservices support now PVs, which are claimed by mean of the PVCs defined in [this file]():
