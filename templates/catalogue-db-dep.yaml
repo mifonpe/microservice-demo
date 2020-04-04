@@ -1,0 +1,46 @@
+{{- if .Values.catalogue.enabled }}
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: catalogue-db
+  labels:
+    name: catalogue-db
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: catalogue-db
+    spec:
+      {{- if .Values.catalogue.database.persistence.enabled }}
+      initContainers:
+      - name: chmoder
+        image: alpine:3.6
+        command: ["/bin/sh"]
+        args: ["-c", "chown -R 999:999 /var/lib/mysql && rm -rf /var/lib/mysql/lost+found"]
+        volumeMounts:
+        - name: database 
+          mountPath: /var/lib/mysql
+      {{- end }} 
+      containers:
+      - name: catalogue-db
+        image: {{ .Values.catalogue.database.image }}:{{ .Values.catalogue.database.version }}
+        envFrom:
+          - secretRef:
+              name: catalogue-db-secret     
+        ports:
+        - name: mysql
+          containerPort: 3306
+      {{- if .Values.catalogue.database.persistence.enabled }}
+        volumeMounts:
+          - mountPath: /var/lib/mysql
+            name: database 
+      volumes:
+        - name: database
+          persistentVolumeClaim:
+            claimName: cataloguedb-pvc  
+      {{- end }}  
+
+         
+{{- end }}

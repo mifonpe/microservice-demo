@@ -1,0 +1,81 @@
+{{- if .Values.orders.enabled }}
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: orders
+  labels:
+    name: orders
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: orders
+    spec:
+      {{- if .Values.orders.persistence.enabled }}
+      initContainers:
+      - name: chmoder
+        image: alpine:3.6
+        command:
+        - chown
+        - -R  
+        - 10001:10001
+        - /tmp
+        volumeMounts:
+        - name: tmp-volume
+          mountPath: /tmp
+      {{- end }}      
+      containers:
+      - name: orders
+        image: {{ .Values.orders.image }}:{{ .Values.orders.version }}
+        env:
+         {{- if .Values.zipkin.enabled }}
+         - name: ZIPKIN
+           value: {{ .Values.zipkin.url }}
+         {{- end }}
+         - name: JAVA_OPTS
+           value: {{ .Values.java.options }}
+        resources:
+          limits:
+            cpu: 500m
+            memory: 2000Mi
+          requests:
+            cpu: 200m
+            memory: 2000Mi
+        ports:
+        - containerPort: 80
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 10001
+          capabilities:
+            drop:
+              - all
+            add:
+              - NET_BIND_SERVICE
+          readOnlyRootFilesystem: true
+        volumeMounts:
+        - mountPath: /tmp
+          name: tmp-volume
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 80
+          initialDelaySeconds: 300
+          periodSeconds: 3
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 80
+          initialDelaySeconds: 180
+          periodSeconds: 3
+      volumes:
+        - name: tmp-volume
+        {{- if .Values.orders.persistence.enabled }}
+          persistentVolumeClaim:
+            claimName: orders-pvc
+        {{- else}}    
+          emptyDir:
+            medium: Memory 
+        {{- end }}
+{{- end }}
