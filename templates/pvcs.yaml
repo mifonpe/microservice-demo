@@ -4,6 +4,8 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: cart-db-pvc
+  annotations:
+    helm.sh/immutable-resource-policy: ignore
 spec:
   accessModes:
     - ReadWriteOnce
@@ -19,6 +21,8 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: ordersdb-pvc
+  annotations:
+    helm.sh/immutable-resource-policy: ignore
 spec:
   accessModes:
     - ReadWriteOnce
@@ -34,6 +38,8 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: orders-pvc
+  annotations:
+    helm.sh/immutable-resource-policy: ignore
 spec:
   accessModes:
     - ReadWriteOnce
@@ -49,6 +55,8 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: shipping-pvc
+  annotations:
+    helm.sh/immutable-resource-policy: ignore
 spec:
   accessModes:
     - ReadWriteOnce
@@ -64,6 +72,8 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: userdb-pvc
+  annotations:
+    helm.sh/immutable-resource-policy: ignore
 spec:
   accessModes:
     - ReadWriteOnce
@@ -79,6 +89,8 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: cataloguedb-pvc 
+  annotations:
+    helm.sh/immutable-resource-policy: ignore
 spec:
   accessModes:
     - ReadWriteOnce
