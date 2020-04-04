@@ -1,6 +1,6 @@
 # microservice-demo
 
-This is a helm chart for a simple microservice for testing purposes, based on [weaveworks socks shop microservice] (https://github.com/microservices-demo/microservices-demo). However, several functionalities have been added and modified, to make it more flexible and secure, following best practices.
+This is a helm chart for a simple microservice for testing purposes, based on [weaveworks socks shop microservice](https://github.com/microservices-demo/microservices-demo). However, several functionalities have been added and modified, to make it more flexible and secure, following best practices.
 
 ## Architecture
 The high level architecture of the application is shown below:
