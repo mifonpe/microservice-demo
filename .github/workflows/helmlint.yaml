@@ -9,10 +9,12 @@ on:
     branches: 
       - master
       - develop
+      - int
   pull_request:
     branches: 
       - master
       - develop
+      - int
 jobs:
   build:
     runs-on: self-hosted
