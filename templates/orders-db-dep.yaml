@@ -13,6 +13,12 @@ spec:
       labels:
         name: orders-db
     spec:
+      {{- if .Values.orders.database.persistence.enabled }}
+      securityContext:
+        runAsUser: 999
+        runAsGroup: 999
+        fsGroup: 999
+      {{- end }}
       containers:
       - name: orders-db
         image: {{ .Values.orders.database.image }}
