@@ -1,0 +1,56 @@
+{{- if .Values.orders.enabled }}
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: orders-db
+  labels:
+    name: orders-db
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: orders-db
+    spec:
+      {{- if .Values.orders.database.persistence.enabled }}
+      initContainers:
+      - name: chmoder
+        image: alpine:3.6
+        command:
+        - chown
+        - -R  
+        - 999:999
+        - /tmp
+        volumeMounts:
+        - name: tmp-volume
+          mountPath: /tmp
+      {{- end }}  
+      containers:
+      - name: orders-db
+        image: {{ .Values.orders.database.image }}
+        ports:
+        - name: mongo
+          containerPort: 27017
+        securityContext:
+          capabilities:
+            drop:
+              - all
+            add:
+              - CHOWN
+              - SETGID
+              - SETUID
+          readOnlyRootFilesystem: true
+        volumeMounts:
+        - mountPath: /tmp
+          name: tmp-volume
+      volumes:
+        - name: tmp-volume
+        {{- if .Values.orders.database.persistence.enabled }}
+          persistentVolumeClaim:
+            claimName: ordersdb-pvc
+        {{- else}}    
+          emptyDir:
+            medium: Memory 
+        {{- end }}
+{{- end }}

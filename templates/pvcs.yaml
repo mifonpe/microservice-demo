@@ -1,0 +1,103 @@
+{{- if and .Values.carts.enabled .Values.carts.database.persistence.enabled }}
+---           
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: cart-db-pvc
+  annotations:
+    helm.sh/immutable-resource-policy: ignore
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .Values.carts.database.persistence.size }}
+  storageClassName: {{ .Values.carts.database.persistence.storageclass }}
+{{- end }}
+
+{{- if and .Values.orders.enabled .Values.orders.database.persistence.enabled }}
+---           
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: ordersdb-pvc
+  annotations:
+    helm.sh/immutable-resource-policy: ignore
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .Values.orders.database.persistence.size }}
+  storageClassName: {{ .Values.orders.database.persistence.storageclass }}
+{{- end }}
+
+{{- if and .Values.orders.enabled .Values.orders.persistence.enabled }}
+---           
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: orders-pvc
+  annotations:
+    helm.sh/immutable-resource-policy: ignore
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .Values.orders.persistence.size }}
+  storageClassName: {{ .Values.orders.storageclass }}
+{{- end }}
+
+{{- if and .Values.shipping.enabled .Values.shipping.persistence.enabled }}
+---           
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: shipping-pvc
+  annotations:
+    helm.sh/immutable-resource-policy: ignore
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .Values.shipping.persistence.size }}
+  storageClassName: {{ .Values.shipping.storageclass }}
+{{- end }}
+
+{{- if and .Values.user.enabled .Values.user.database.persistence.enabled }}
+---           
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: userdb-pvc
+  annotations:
+    helm.sh/immutable-resource-policy: ignore
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .Values.user.database.persistence.size }}
+  storageClassName: {{ .Values.user.database.persistence.storageclass }}
+{{- end }}
+
+{{- if and .Values.catalogue.enabled .Values.catalogue.database.persistence.enabled }}
+---           
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: cataloguedb-pvc 
+  annotations:
+    helm.sh/immutable-resource-policy: ignore
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .Values.catalogue.database.persistence.size }}
+  storageClassName: {{ .Values.catalogue.database.persistence.storageclass }}
+{{- end }}
+
+

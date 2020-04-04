@@ -1,0 +1,31 @@
+{{- if .Values.sessiondb.enabled }}
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: session-db
+  labels:
+    name: session-db
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: session-db
+    spec:
+      containers:
+      - name: session-db
+        image: {{ .Values.rabbitmq.image }}:{{ .Values.rabbitmq.version }}
+        ports:
+        - name: redis
+          containerPort: 6379
+        securityContext:
+          capabilities:
+            drop:
+              - all
+            add:
+              - CHOWN
+              - SETGID
+              - SETUID
+          readOnlyRootFilesystem: true
+{{- end }}         
