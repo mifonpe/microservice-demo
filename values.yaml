@@ -21,7 +21,7 @@ orders:
     image: weaveworksdemos/orders
     version: 0.4.7
     persistence:
-        enabled: true
+        enabled: false
         size: 1Gi
         storageclass: "" 
     database:
