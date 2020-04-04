@@ -9,8 +9,8 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: {{ .Values.carts.persistence.size }}
-  storageClassName: {{ .Values.carts.persistence.storageclass }}
+      storage: {{ .Values.carts.database.persistence.size }}
+  storageClassName: {{ .Values.carts.database.persistence.storageclass }}
 {{- end }}
 
 {{- if and .Values.orders.enabled .Values.orders.database.persistence.enabled }}
