@@ -28,5 +28,7 @@ Secrets are incorporated to pass sensitive environment variables securely to the
 
 ## CI
 In order to provide a CI cycle for this Helm Chart development, Github actions are used to check the templates. In this case, a [customized image](https://github.com/mifonpe/github-runner) with its own CI is used for the runners, which already contains helm and some other utilities, and runs in a personal cluster. 
+## CI
+The CD of this chart is made following the GitOps paradigm, by means of fluxcd. The CD configuration repo can be found [here](https://github.com/mifonpe/alteos-microservice).
 
 
